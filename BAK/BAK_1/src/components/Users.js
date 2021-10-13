@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import MyModal from "./Modal/Modal";
-import View from "./view";
+import { Link } from "react-router-dom";
 
 class Users extends Component {
   constructor(props) {
@@ -43,15 +43,14 @@ class Users extends Component {
     console.log("added");
   }
 
+
   handleUpdate = (id, updatedUser) => {
-    const { employees } = this.state;
+    const { employees } = this.state
 
     this.setState({
-      employees: employees.map((user) =>
-        user.name === id ? updatedUser : user
-      ),
-    });
-  };
+      employees: employees.map((user) => (user.name === id ? updatedUser : user)),
+    })
+  }
 
   handleDelete = (employee) => {
     const employees = this.state.employees.filter((c) => c.id !== employee);
@@ -83,8 +82,6 @@ class Users extends Component {
 
   render() {
     console.log(this.state.employees);
-    const { employees } = this.state;
-    const data = employees;
     return (
       <div>
         <h2 className="text-center">Employees List</h2>
@@ -96,8 +93,47 @@ class Users extends Component {
         </MyModal>
         <div className="row"></div>
         <br></br>
+        <div className="row">
+          <table className="table table-striped table-bordered">
+            <thead>
+              <tr>
+                <th> Employee First Name</th>
+                <th> Employee Last Name</th>
+                <th> Employee Email Id</th>
+                <th> Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {this.state.employees.map((employee) => (
+                <tr key={employee.id}>
+                  <td> {employee.name} </td>
+                  <td> {employee.id} </td>
+                  <td> {employee.email}</td>
+                  <td>
+                    <Link to={`/users/${employee.id}`}>
+                      <button class="btn btn-secondary"> View </button>
+                    </Link>
 
-        <View data={data}></View>
+                    <button
+                      style={{ marginLeft: "10px" }}
+                      onClick={() => this.editEmployee(employee.id)}
+                      className="btn btn-info"
+                    >
+                      Update{" "}
+                    </button>
+                    <button
+                      style={{ marginLeft: "10px" }}
+                      onClick={() => this.handleDelete(employee.id)}
+                      className="btn btn-danger"
+                    >
+                      Delete{" "}
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     );
   }
