@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import MyModal from "./Modal/Modal";
+import { Link } from "react-router-dom";
+
 
 class Users extends Component {
   constructor(props) {
@@ -51,7 +53,7 @@ class Users extends Component {
   };
 
   componentDidMount() {
-    fetch("./data.json")
+    fetch("https://jsonplaceholder.typicode.com/users")
       .then((res) => res.json())
       .then(
         (result) => {
@@ -97,9 +99,15 @@ class Users extends Component {
               {this.state.employees.map((employee) => (
                 <tr key={employee.id}>
                   <td> {employee.name} </td>
-                  <td> {employee.city} </td>
+                  <td> {employee.id} </td>
                   <td> {employee.email}</td>
                   <td>
+
+                  <Link to={`/users/${employee.id}`} >
+
+
+<button class="btn btn-secondary" >    More Info..</button>
+</Link>
                     <button
                       style={{ marginLeft: "10px" }}
                       onClick={() => this.viewEmployee(employee.id)}
