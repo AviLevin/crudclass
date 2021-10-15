@@ -1,6 +1,8 @@
 import React, { Component } from "react";
-import MyModal from "./Modal/Modal";
-import View from "./view";
+import Add from "../Add";
+// import Add2 from "./Add/Add2"
+import View from "../View/View";
+import classes from "./Users.module.css";
 
 class Users extends Component {
   constructor(props) {
@@ -10,6 +12,7 @@ class Users extends Component {
       value: "",
       firstName: "",
       phone: "",
+      id: "",
     };
 
     this.changeFirstNameHandler = this.changeFirstNameHandler.bind(this);
@@ -43,15 +46,18 @@ class Users extends Component {
     console.log("added");
   }
 
-  handleUpdate = (id, updatedUser) => {
+  handleEdit = (id, updatedUser) => {
     const { employees } = this.state;
 
     this.setState({
-      employees: employees.map((user) =>
-        user.name === id ? updatedUser : user
-      ),
+      employees: employees.map((employee) => (employee.name === id ? updatedUser : employee)),
     });
+    console.log("is edited")
+    console.log(updatedUser);
+    console.log( id);
   };
+
+
 
   handleDelete = (employee) => {
     const employees = this.state.employees.filter((c) => c.id !== employee);
@@ -88,16 +94,21 @@ class Users extends Component {
     return (
       <div>
         <h2 className="text-center">Employees List</h2>
-        <MyModal
+        <Add
           changeFirstNameHandler={this.changeFirstNameHandler}
           handleAddItem={this.handleAddItem}
         >
           {" "}
-        </MyModal>
+        </Add>
         <div className="row"></div>
         <br></br>
 
-        <View data={data}></View>
+        <View
+          data={data}
+          handleDelete={this.handleDelete}
+          handleEdit={this.handleEdit}
+          id={this.state.id}
+        ></View>
       </div>
     );
   }

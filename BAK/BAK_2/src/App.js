@@ -1,5 +1,5 @@
 import "./App.css";
-import Users from "./components/Users/Users";
+import Users from "./components/Users";
 import User from "./components/User";
 import Nav from "./components/Nav";
 import About from "./components/About";
