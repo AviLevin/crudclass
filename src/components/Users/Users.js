@@ -46,7 +46,7 @@ class Users extends Component {
     console.log("added");
   }
 
-  handleEdit = (id, updatedUser) => {
+  handleEdit = (id, updatedUser) => {  
     const { employees } = this.state;
     const index = employees.indexOf(updatedUser);
     employees[index] = { ...updatedUser };
