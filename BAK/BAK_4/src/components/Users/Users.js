@@ -54,7 +54,7 @@ class Users extends Component {
     });
     console.log("is edited")
     console.log(updatedUser);
-    console.log( id);
+    console.log( 'isID', this.id);
   };
 
 

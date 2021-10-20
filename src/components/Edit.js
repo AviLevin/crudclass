@@ -11,7 +11,7 @@ const myStyle = {
 const MyModal = (props) => {
   const [show, setShow] = useState(false);
   const [visibility, setvisibility] = useState(false);
-  const [form, setForm] = useState();
+  const [form, setForm] = useState(props.employees);
   const [name, setName] = useState();
 
   // const {  handleEdit } = this.props;
@@ -20,39 +20,30 @@ const MyModal = (props) => {
 
   const handleShow = () => {
     setShow(true);
-    setvisibility(false);
+    // setvisibility(false);`
   };
 
-  const handleAlert = () => {
-    setvisibility(true);
-    props.handleAddItem();
+ const handleChange = (event) => {
+    const { value } = event.target;
+
+    setForm({
+      form: value,
+    });
   };
-
-  const handleChange = (event) => {
-    // const { name, value } = event.target;
-
-    setName(event.target.value)
-
-    // this.setState({
-    //   form: { ...form, [name]: value },
-    // });
-  };
-
-  // changeFirstNameHandler = (event) => {
-  //   this.setState({ firstName: event.target.value });
-  // };
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    // const { name } = name;
-    // const { updateRow } = this.props;
+    const { name } = form;
+    const { handleEdit } = props;
 
     const updatedUser = {
-      name,
+      form
+      
     };
 
-    props.handleEdit( updatedUser);
+    handleEdit(props.id, updatedUser);
+    // this.props.onClose();
   };
 
   return (
@@ -70,10 +61,10 @@ const MyModal = (props) => {
             <label> First Name: </label>
             <input
               onChange={handleChange}
-              
               placeholder="First Name"
               name="firstName"
               className="form-control"
+              value={name}
               // value={this.state.firstName}
               // onChange={this.changeFirstNameHandler}
             />
